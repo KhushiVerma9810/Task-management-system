@@ -52,7 +52,8 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
 
 export const getById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const task = await getTask(req.user!.id, req.params.id);
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const task = await getTask(req.user!.id, id);
     return res.status(200).json(task);
   } catch (err) {
     return next(err);
@@ -62,7 +63,8 @@ export const getById = async (req: Request, res: Response, next: NextFunction) =
 export const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const input = updateTaskSchema.parse(req.body);
-    const task = await updateTask(req.user!.id, req.params.id, {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const task = await updateTask(req.user!.id, id, {
       ...input,
       dueDate: input.dueDate ? new Date(input.dueDate) : undefined,
     });
@@ -74,7 +76,8 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
 
 export const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await deleteTask(req.user!.id, req.params.id);
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    await deleteTask(req.user!.id, id);
     return res.status(204).send();
   } catch (err) {
     return next(err);
@@ -83,7 +86,8 @@ export const remove = async (req: Request, res: Response, next: NextFunction) =>
 
 export const toggle = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const task = await toggleTaskStatus(req.user!.id, req.params.id);
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const task = await toggleTaskStatus(req.user!.id, id);
     return res.status(200).json(task);
   } catch (err) {
     return next(err);
