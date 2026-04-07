@@ -199,10 +199,13 @@ export function TaskForm({
           </div>
 
           <div className="mt-2 flex flex-col-reverse gap-3 border-t border-[#ece8f6] bg-[#f8f7fd] px-6 py-4 sm:flex-row sm:justify-end">
-            <DialogClose asChild>
-              <Button type="button" variant="outline" className="h-10 rounded-xl border-[#d9d4ea]">
-                Cancel
-              </Button>
+            <DialogClose
+              className={cn(
+                buttonVariants({ variant: "outline", size: "default" }),
+                "h-10 rounded-xl border-[#d9d4ea]"
+              )}
+            >
+              Cancel
             </DialogClose>
             <Button
               type="submit"

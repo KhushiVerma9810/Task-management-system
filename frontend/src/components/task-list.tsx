@@ -61,7 +61,7 @@ const priorityLabel: Record<TaskPriority, string> = {
   HIGH: "High",
 };
 
-const formatDateChip = (date?: string) => {
+const formatDateChip = (date?: string | null) => {
   if (!date) return null;
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return null;
@@ -234,7 +234,10 @@ export function TaskList() {
                 ))}
                 </SelectContent>
               </Select>
-              <Select value={sortOrder} onValueChange={setSortOrder}>
+              <Select
+                value={sortOrder}
+                onValueChange={(value) => setSortOrder(value ?? "newest")}
+              >
                 <SelectTrigger className="h-10 w-full rounded-xl border-[#ece8f6] bg-[#fbfaff] text-sm sm:w-[180px]">
                   <SelectValue placeholder="Newest first" />
                 </SelectTrigger>
